@@ -1,0 +1,18 @@
+{
+  "name": "playwright-serverless",
+  "private": true,
+  "description": "Execução do playwright via serverless",
+  "author": "Paulo Gonçalves <paulorochag@hotmail.com> (https://www.linkedin.com/in/paulo-goncalves/)",
+  "license": "GPL-3.0",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "jest": "27.0.6",
+    "jest-playwright-preset": "1.7.0",
+    "playwright": "1.14.0"
+  },
+  "devDependencies": {
+    "aws-lambda-ric": "1.1.0"
+  }
+}

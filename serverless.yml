@@ -1,0 +1,25 @@
+
+service: playwright-serverless
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: us-east-1
+  ecr:
+    images:
+      baseimage:
+        path: ./
+        file: Dockerfile
+
+functions:
+  run-tests:
+    timeout: 60
+    image: baseimage
+    events:
+      - httpApi:
+          path: /
+          method: post
