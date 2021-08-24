@@ -1,5 +1,10 @@
 # Running hundreds of Playwright tests in a few seconds with AWS Lambda
 
+<div align="center">
+<b><i>Give the <a href="https://github.com/PauloGoncalvesBH/running-playwright-on-aws-lambda">repository</a> a star ⭐, it encourages me to create advanced software quality content 100% free</i></b>
+</div>
+<br>
+
 This project has a playwright implementation so that it is consumed via AWS Lambda, allowing to parallelize the execution of all files and making the execution much faster.
 
 The success of this implementation demonstrates that, in scenarios where E2E testing is needed to validate critical behaviors that are not possible in another type of test, it is possible to use AWS Lambda to run this same test on all Pull Requests, not just a few times in day.
