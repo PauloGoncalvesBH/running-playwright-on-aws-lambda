@@ -36,6 +36,8 @@ RUN apk add --no-cache \
     ttf-freefont=20120503-r1 \
     && rm -rf /var/cache/apk/*
 
+ENV IS_TEST_RUNNING_ON_LAMBDA true
+
 WORKDIR /app
 
 COPY lambda/handler.js ./
