@@ -20,7 +20,8 @@ WORKDIR /dependencies
 
 COPY tests/package*.json ./
 
-RUN npm ci
+RUN npm ci \
+    && npm install aws-lambda-ric@1.1.0 --save-exact
 
 FROM node:14-alpine3.12@sha256:5733466201d57d5da95db081f7facc24f5505f290a9dd78e18fc81648ad44740
 
@@ -42,5 +43,5 @@ COPY tests/ ./
 
 COPY --from=build-image /dependencies/node_modules/ ./node_modules
 
-ENTRYPOINT ["/usr/local/bin/npx", "aws-lambda-ric"]
+ENTRYPOINT ["/usr/local/bin/npx", "aws-lambda-ric@1.1.0"]
 CMD ["handler.runTest"]
