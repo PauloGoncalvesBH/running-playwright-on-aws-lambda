@@ -78,6 +78,20 @@ With a higher concurrent execution we would have better results in total time.
 
 To understand how tests are run and AWS Lambda is built I recommend accessing the pipelines in [./.github/workflows/](./.github/workflows/) and the [Makefile](./Makefile).
 
+### Run locally (without using AWS Lambda)
+
+Acess the directory [./tests](./tests) and execute:
+
+```sh
+npm ci
+```
+
+Run the test with:
+
+```sh
+npm test
+```
+
 ___
 
 [LICENSE GNU General Public License v3.0](./LICENSE)
