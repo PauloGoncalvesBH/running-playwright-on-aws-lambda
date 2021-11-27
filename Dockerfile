@@ -1,58 +1,46 @@
-# Define custom function directory
-ARG FUNCTION_DIR="/function"
+FROM node:14-alpine3.12@sha256:5733466201d57d5da95db081f7facc24f5505f290a9dd78e18fc81648ad44740 as build-image
 
-FROM node:14-alpine3.12 as build-image
+RUN apk add --no-cache \
+    build-base=0.5-r2 \
+    libtool=2.4.6-r7 \
+    libressl-dev=3.1.2-r0 \
+    musl-dev=1.1.24-r10 \
+    libffi-dev=3.3-r2 \
+    autoconf=2.69-r2 \
+    automake=1.16.2-r0 \
+    libexecinfo-dev=1.1-r1 \
+    make=4.3-r0 \
+    cmake=3.17.2-r0 \
+    python3=3.8.10-r0 \
+    py3-pip=20.1.1-r0 \
+    libcurl=7.79.1-r0 \
+    && rm -rf /var/cache/apk/*
 
-# Include global arg in this stage of the build
-ARG FUNCTION_DIR
+WORKDIR /dependencies
 
-RUN apk add --update-cache \
-    build-base \
-    libtool \
-    libressl-dev \
-    musl-dev \
-    libffi-dev \
-    autoconf \
-    automake \
-    libexecinfo-dev \
-    make \
-    cmake \
-    python3 \
-    py3-pip \
-    libcurl
+COPY tests/package*.json ./
 
-# Create function directory
-RUN mkdir -p ${FUNCTION_DIR}
-
-WORKDIR ${FUNCTION_DIR}
-
-# Copy test files and handler
-COPY lambda/handler.js ${FUNCTION_DIR}
-COPY tests/ ${FUNCTION_DIR}
-
-# Install the function's dependencies
 RUN npm ci
 
-FROM node:14-alpine3.12
+FROM node:14-alpine3.12@sha256:5733466201d57d5da95db081f7facc24f5505f290a9dd78e18fc81648ad44740
 
-# Installs latest Chromium package.
+# Installs Chromium package
 RUN apk add --no-cache \
-    chromium \
-    nss \
-    freetype \
-    freetype-dev \
-    harfbuzz \
-    ca-certificates \
-    ttf-freefont
+    chromium=86.0.4240.111-r0 \
+    nss=3.60-r1 \
+    freetype=2.10.4-r0 \
+    freetype-dev=2.10.4-r0 \
+    harfbuzz=2.6.6-r0 \
+    ca-certificates=20191127-r4 \
+    ttf-freefont=20120503-r1 \
+    && rm -rf /var/cache/apk/*
 
-# Include global arg in this stage of the build
-ARG FUNCTION_DIR
+WORKDIR /app
 
-# Set working directory to function root directory
-WORKDIR ${FUNCTION_DIR}
+COPY lambda/handler.js ./
+COPY tests/ ./
 
-# Copy in the built dependencies
-COPY --from=build-image ${FUNCTION_DIR} ${FUNCTION_DIR}
+COPY --from=build-image /dependencies/node_modules/ ./node_modules
 
 ENTRYPOINT ["/usr/local/bin/npx", "aws-lambda-ric"]
 CMD ["handler.runTest"]
