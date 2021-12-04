@@ -45,5 +45,5 @@ COPY tests/ ./
 
 COPY --from=build-image /dependencies/node_modules/ ./node_modules
 
-ENTRYPOINT ["/usr/local/bin/npx", "aws-lambda-ric@1.1.0"]
+ENTRYPOINT ["node_modules/.bin/aws-lambda-ric"]
 CMD ["handler.runTest"]
