@@ -10,15 +10,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Node.js Setup
-      uses: actions/setup-node@v1
-    - name: Install NPM dependencies
-      run: |
-        cd serverless-runner
-        npm install
-    - name: Install Serverless Framework
-      run: npm install -g serverless@2.54.0
-    - name: Serverless AWS authentication
-      run: serverless config credentials --provider AWS --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - name: Run test on serverless
       run: make test-serverless
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
