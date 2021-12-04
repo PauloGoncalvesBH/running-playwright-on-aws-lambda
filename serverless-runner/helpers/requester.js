@@ -24,6 +24,14 @@ function runTest({ file, functionName, resolve, startTestTime }) {
   })
   .promise()
   .then(onTestExecuted.bind(null, { file, startTestTime, resolve }))
+  .catch(error => {
+    if (error.message.includes('Check your AWS Secret Access Key and signing method')) {
+      console.error({ error: 'Unauthenticated. Check your AWS Secret Access Key (AWS_SECRET_ACCESS_KEY) and Acess Key (AWS_ACCESS_KEY_ID).' })
+    } else {
+      console.error({ error: error.message, stackTrace: error.stack })
+    }
+    process.exit(1)
+  })
 }
 
 const onTestExecuted = ({ file, startTestTime, resolve }, response) => {
@@ -33,7 +41,6 @@ const onTestExecuted = ({ file, startTestTime, resolve }, response) => {
   numFailedTests += responseObj.numFailedTests
   numPassedTests += responseObj.numPassedTests
   numPendingTests += responseObj.numPendingTests
-  // let total = Date.now() - startTestTime
   numTotalTests += responseObj.numTotalTests
   totalTimeExecution += Date.now() - startTestTime
   resolve({
