@@ -20,7 +20,7 @@ function getAllTestFilesByTestPattern({ testPattern }) {
     .sync(testPattern, {
       cwd: "../tests"
     })
-    .map(file => `/function/${file}`)
+    .map(file => `/app/${file}`)
   return {
     files,
     numTotalFiles: files.length,
