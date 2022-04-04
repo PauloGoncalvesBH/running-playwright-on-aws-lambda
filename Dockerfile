@@ -28,11 +28,11 @@ FROM node:14-alpine3.12@sha256:5733466201d57d5da95db081f7facc24f5505f290a9dd78e1
 # Installs Chromium package
 RUN apk add --no-cache \
     chromium=86.0.4240.111-r0 \
-    nss=3.60-r1 \
+    nss \
     freetype=2.10.4-r0 \
     freetype-dev=2.10.4-r0 \
     harfbuzz=2.6.6-r0 \
-    ca-certificates=20191127-r4 \
+    ca-certificates \
     ttf-freefont=20120503-r1 \
     && rm -rf /var/cache/apk/*
 
