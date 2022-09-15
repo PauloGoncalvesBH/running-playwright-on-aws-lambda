@@ -9,12 +9,12 @@ on:
 jobs:
   deploy-prod:
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v2
     - name: Node.js Setup
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
     - name: Install Serverless Framework
       run: npm install -g serverless@3.X
     - name: Serverless AWS authentication
