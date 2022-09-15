@@ -16,7 +16,7 @@ jobs:
     - name: Node.js Setup
       uses: actions/setup-node@v1
     - name: Install Serverless Framework
-      run: npm install -g serverless@2.54.0
+      run: npm install -g serverless@3.X
     - name: Serverless AWS authentication
       run: serverless config credentials --provider AWS --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - name: Deploy Lambda functions
