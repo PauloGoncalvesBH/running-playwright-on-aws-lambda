@@ -76,7 +76,42 @@ With a higher concurrent execution we would have better results in total time.
 
 ## More information
 
-To understand how tests are run and AWS Lambda is built I recommend accessing the pipelines in [./.github/workflows/](./.github/workflows/) and the [Makefile](./Makefile).
+> To understand how tests are run and AWS Lambda is built I recommend accessing the pipelines in [./.github/workflows/](./.github/workflows/) and the [Makefile](./Makefile).
+
+### Deploying at AWS Lambda
+
+1. Install serverless globally:
+
+```sh
+npm install --global serverless@3.X
+```
+
+2. Create AWS Acess keys: https://www.serverless.com/framework/docs/providers/aws/guide/credentials/#creating-aws-access-keys
+
+3. Configure the Serverless Framework CLI to use AWS access keys
+
+```sh
+serverless config credentials \
+  --provider aws \
+  --key <AWS_ACCESS_KEY_ID> \
+  --secret <AWS_SECRET_ACCESS_KEY>
+```
+
+> More at: https://www.serverless.com/framework/docs/providers/aws/cli-reference/config-credentials#configure-the-default-profile
+
+4. And, finally, deploy the application at AWS Lambda:
+
+```sh
+make deploy
+```
+
+### Run tests at AWS Lambda
+
+After deploying run the tests using the following command:
+
+```sh
+make test-serverless
+```
 
 ### Run locally (without using AWS Lambda)
 
