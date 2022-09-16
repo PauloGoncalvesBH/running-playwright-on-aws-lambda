@@ -9,12 +9,14 @@ This project has a playwright implementation so that it is consumed via AWS Lamb
 
 The success of this implementation demonstrates that, in scenarios where E2E testing is needed to validate critical behaviors that are not possible in another type of test, it is possible to use AWS Lambda to run this same test on all Pull Requests, not just a few times in day.
 
+> _**Note:** This project was created as a result of study. Identify whether the parallelism presented here suits your case._
+
 ## Result
 
-With playwright on serverless it was possible to run 110 files, with 221 tests, in less than 25 seconds.
+With playwright on serverless it was possible to run 110 files parallelized, with 221 tests, in less than 25 seconds.
 This same test running without parallelization would take 23 minutes. 
 
-> To see the execution in detail, you can access the [pipeline log by clicking here](https://github.com/PauloGoncalvesBH/playwright-serverless/runs/3407401614?check_suite_focus=true#step:7:1).
+> To see the execution in detail, you can access the [pipeline log by clicking here](https://github.com/PauloGoncalvesBH/running-playwright-on-aws-lambda/actions/workflows/test-serverless.yml).
 
 The gif below demonstrates the execution:
 
@@ -24,7 +26,7 @@ The gif below demonstrates the execution:
 
 ## Pricing
 
-Running hundreds of Lambda functions that last a few seconds has little impact on the final cost.
+Running hundreds of Lambda functions that last a few seconds has little impact on the final cost. To implement this parallelism in your project, perform the price calculation.
 
 AWS Lambda Price:
 
