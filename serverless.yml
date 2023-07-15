@@ -13,6 +13,8 @@ provider:
       baseimage:
         path: ./
         file: Dockerfile
+      # platform: linux/amd64
+      # Uncomment the above line if you are using Apple M1
 
 functions:
   run-tests:
